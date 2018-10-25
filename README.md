@@ -1,3 +1,3 @@
 ## Meta-learning with differentiable closed-form solvers
 
-PyTorch code coming soon.
+PyTorch code will be released this November.
