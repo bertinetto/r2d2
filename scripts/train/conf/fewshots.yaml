@@ -1,0 +1,59 @@
+# # Data
+data.dataset: miniimagenet
+data.root_dir: /home/luca/fewshots
+data.way: 16
+data.shot: 0
+data.test_way: 5
+data.train_episodes: 100
+data.test_episodes: 200
+data.batch_size: 240
+data.shot_min: 1
+data.shot_max: 10
+data.way_min: 5
+data.way_max: 10000
+data.seed: 1234
+
+# # Model
+model.model_name: RRNet
+model.lrelu: 0.1
+model.drop: 0.1
+model.bn_momentum: 0.1
+model.groupnorm: False
+model.debug: False
+model.model_path: _
+
+# # Train
+train.epochs: 1200
+train.optim_method: Adam
+train.learning_rate: 5e-3
+train.lr_decay: 0.5
+train.decay_every: 20
+train.weight_decay: 0
+train.patience: 300
+train.scheduler_type: step
+train.plateau_patience: 20
+
+# # Logs
+log.fields: loss,acc
+log.exp_dir: results
+
+# # Run
+data.gpu: 0
+data.cuda: True
+
+# # Data augmentation
+augm.rotation: False
+augm.crop: False
+augm.max_crop_shrink: 5
+augm.cache_size: 1
+augm.n_augment: 1
+
+# # Base learner (R2-D2 or LR-D2)
+base_learner.method: R2D2
+base_learner.iterations: 0
+base_learner.learn_lambda: False
+base_learner.init_lambda: 50
+base_learner.lambda_base: 1
+base_learner.adj_base: 1
+base_learner.init_adj_scale: 1e-4
+base_learner.linsys: False
