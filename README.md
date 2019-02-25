@@ -5,7 +5,6 @@
 
 #### Paper
 * OpenReview: https://openreview.net/forum?id=HyxnZh0ct7 
-* arXiv: https://arxiv.org/abs/1805.08136
 
 Please refer to it as:
 ```
@@ -14,7 +13,8 @@ bertinetto2018metalearning,
 title={Meta-learning with differentiable closed-form solvers},
 author={Luca Bertinetto and Joao F. Henriques and Philip Torr and Andrea Vedaldi},
 booktitle={International Conference on Learning Representations},
-year={2019}
+year={2019},
+url={https://openreview.net/forum?id=HyxnZh0ct7},
 }
 ```
 
