@@ -15,17 +15,20 @@ def setup_images(split, d, cache, dataset, init_entry, root_dir, augm_opt):
     if dataset == 'omniglot':
         original_size = 105
         target_size = 28
-        crop_transforms = [torchvision.transforms.RandomCrop(original_size-s) for s in range(augm_opt['max_crop_shrink'])]
+        crop_transforms = [torchvision.transforms.RandomCrop(original_size - s) for s in
+                           range(augm_opt['max_crop_shrink'])]
         _setup_class_omniglot(split, d, cache, init_entry, crop_transforms, target_size, root_dir, augm_opt)
     elif dataset == 'miniimagenet':
         original_size = 84
         target_size = 84
-        crop_transforms = [torchvision.transforms.RandomCrop(original_size-s) for s in range(augm_opt['max_crop_shrink'])]
+        crop_transforms = [torchvision.transforms.RandomCrop(original_size - s) for s in
+                           range(augm_opt['max_crop_shrink'])]
         _setup_class_miniimagenet(split, d, cache, init_entry, crop_transforms, target_size, root_dir, augm_opt)
     elif dataset == 'cifar100':
         original_size = 32
         target_size = 32
-        crop_transforms = [torchvision.transforms.RandomCrop(original_size-s) for s in range(augm_opt['max_crop_shrink'])]
+        crop_transforms = [torchvision.transforms.RandomCrop(original_size - s) for s in
+                           range(augm_opt['max_crop_shrink'])]
         _setup_class_cifar100(split, d, cache, init_entry, crop_transforms, target_size, root_dir, augm_opt)
     else:
         raise ValueError("Unknown dataset: {:s}".format(dataset))
@@ -66,7 +69,6 @@ def _setup_class_omniglot(split, d, cache, init_entry, crop_transforms, target_s
 
 
 def _setup_class_miniimagenet(split, d, cache, init_entry, crop_transforms, target_size, root_dir, augm_opt):
-
     image_dir = os.path.join(root_dir, 'miniimagenet', 'data', d['class'])
 
     if augm_opt['rotation']:
@@ -99,7 +101,6 @@ def _setup_class_miniimagenet(split, d, cache, init_entry, crop_transforms, targ
 
 
 def _setup_class_cifar100(split, d, cache, init_entry, crop_transforms, target_size, root_dir, augm_opt):
-
     image_dir = os.path.join(root_dir, 'cifar100', 'data', d['class'])
 
     if augm_opt['rotation']:

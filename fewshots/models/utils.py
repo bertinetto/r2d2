@@ -1,4 +1,5 @@
-# This file originally appeared in https://github.com/jakesnell/prototypical-networks and has been modified for the purpose of this project
+# This file originally appeared in https://github.com/jakesnell/prototypical-networks
+# and has been modified for the purpose of this project
 
 import torch
 from torch.autograd import Variable

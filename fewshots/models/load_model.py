@@ -25,27 +25,27 @@ class RRFeatures(nn.Module):
     def __init__(self, x_dim, parameters, lrelu_slope, drop, groupnorm, bn_momentum):
         super(RRFeatures, self).__init__()
         self.features1 = nn.Sequential(
-                            nn.Conv2d(x_dim, parameters[0], 3, padding=1),
-                            _norm(parameters[0], bn_momentum, groupnorm=groupnorm),
-                            nn.MaxPool2d(2, stride=2),
-                            nn.LeakyReLU(lrelu_slope))
+            nn.Conv2d(x_dim, parameters[0], 3, padding=1),
+            _norm(parameters[0], bn_momentum, groupnorm=groupnorm),
+            nn.MaxPool2d(2, stride=2),
+            nn.LeakyReLU(lrelu_slope))
         self.features2 = nn.Sequential(
-                            nn.Conv2d(parameters[0], parameters[1], 3, padding=1),
-                            _norm(parameters[1], bn_momentum, groupnorm=groupnorm),
-                            nn.MaxPool2d(2, stride=2),
-                            nn.LeakyReLU(lrelu_slope))
+            nn.Conv2d(parameters[0], parameters[1], 3, padding=1),
+            _norm(parameters[1], bn_momentum, groupnorm=groupnorm),
+            nn.MaxPool2d(2, stride=2),
+            nn.LeakyReLU(lrelu_slope))
         self.features3 = nn.Sequential(
-                            nn.Conv2d(parameters[1], parameters[2], 3, padding=1),
-                            _norm(parameters[2], bn_momentum, groupnorm=groupnorm),
-                            nn.MaxPool2d(2, stride=2),
-                            nn.LeakyReLU(lrelu_slope),
-                            nn.Dropout(drop))
+            nn.Conv2d(parameters[1], parameters[2], 3, padding=1),
+            _norm(parameters[2], bn_momentum, groupnorm=groupnorm),
+            nn.MaxPool2d(2, stride=2),
+            nn.LeakyReLU(lrelu_slope),
+            nn.Dropout(drop))
         self.features4 = nn.Sequential(
-                            nn.Conv2d(parameters[2], parameters[3], 3, padding=1),
-                            _norm(parameters[3], bn_momentum, groupnorm=groupnorm),
-                            nn.MaxPool2d(2, stride=1),
-                            nn.LeakyReLU(lrelu_slope),
-                            nn.Dropout(drop))
+            nn.Conv2d(parameters[2], parameters[3], 3, padding=1),
+            _norm(parameters[3], bn_momentum, groupnorm=groupnorm),
+            nn.MaxPool2d(2, stride=1),
+            nn.LeakyReLU(lrelu_slope),
+            nn.Dropout(drop))
 
         self.pool3 = nn.MaxPool2d(2, stride=1)
 
@@ -59,6 +59,7 @@ class RRFeatures(nn.Module):
         x4 = x.view(x.size(0), -1)
         x = torch.cat((x3, x4), 1)
         return x
+
 
 @register_model('RRNet')
 def load_rrnet(**kwargs):
@@ -88,9 +89,11 @@ def load_rrnet(**kwargs):
     encoder = RRFeatures(x_dim, parameters, lrelu, drop, groupnorm, bn_momentum)
 
     if method == 'R2D2':
-        return r2d2.RRNet(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base, n_augment, linsys)
+        return r2d2.RRNet(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base,
+                          n_augment, linsys)
     else:
-        return lrd2.LRD2(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base, n_augment, iterations, linsys)
+        return lrd2.LRD2(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base,
+                         n_augment, iterations, linsys)
 
 
 @register_model('RRNet_small')
@@ -120,6 +123,8 @@ def load_rrnet_small(**kwargs):
     encoder = RRFeatures(x_dim, parameters, lrelu, drop, groupnorm, bn_momentum)
 
     if method == 'R2D2':
-        return r2d2.RRNet(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base, n_augment, linsys)
+        return r2d2.RRNet(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base,
+                          n_augment, linsys)
     else:
-        return lrd2.LRD2(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base, n_augment, iterations, linsys)
+        return lrd2.LRD2(encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base,
+                         n_augment, iterations, linsys)

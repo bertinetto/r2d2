@@ -14,11 +14,11 @@ def visualize_batch(x, n_way, n_shot, n_query):
     assert xq.size(0) == n_way * n_query
 
     for i in range(xs.size(0)):
-            filename = 'out/example_%02d.bmp' % i
-            support = to_pil(xs[i, :, :].data)
-            support.save(filename)
+        filename = 'out/example_%02d.bmp' % i
+        support = to_pil(xs[i, :, :].data)
+        support.save(filename)
 
     for i in range(xq.size(0)):
-            filename = 'out/query_%02d.bmp' % i
-            support = to_pil(xq[i, :, :].data)
-            support.save(filename)
+        filename = 'out/query_%02d.bmp' % i
+        support = to_pil(xq[i, :, :].data)
+        support.save(filename)

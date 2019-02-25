@@ -1,4 +1,5 @@
-# This file originally appeared in https://github.com/jakesnell/prototypical-networks and has been modified for the purpose of this project
+# This file originally appeared in https://github.com/jakesnell/prototypical-networks
+# and has been modified for the purpose of this project
 
 import os
 import json
@@ -13,7 +14,6 @@ import fewshots.utils.model as model_utils
 
 
 def main(opts):
-
     os.environ['CUDA_VISIBLE_DEVICES'] = str(opts['data.gpu'])
 
     model = torch.load(opts['model.model_path'])
@@ -68,8 +68,8 @@ def main(opts):
     for field, meter in meters.items():
         mean, std = meter.value()
         results_str = "test {:s}: {:0.6f} +/- {:0.6f}".format(field, mean,
-                                                      1.96 * std / math.sqrt(data_opt['data.test_episodes']))
+                                                              1.96 * std / math.sqrt(data_opt['data.test_episodes']))
         print(results_str)
-        fh.write(results_str+'\n')
+        fh.write(results_str + '\n')
 
     fh.close()

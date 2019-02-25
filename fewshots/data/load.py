@@ -15,7 +15,6 @@ root_dir = ''
 
 
 def extract_episode(setup_episode, augm_opt, d):
-
     # data: N x C x H x W
     n_max_examples = d[0]['data'].size(0)
 
@@ -54,13 +53,17 @@ def load_data(opt, splits):
 
         if split in ['train', 'trainval']:
             # random shots
-            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'], fixed_shot=opt['data.shot'], way_min=opt['data.way_min'], fixed_way=n_way)
+            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'],
+                              fixed_shot=opt['data.shot'], way_min=opt['data.way_min'], fixed_way=n_way)
         elif split == 'val1':
-            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'], fixed_shot=1, way_min=opt['data.way_min'], fixed_way=n_way)
+            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'], fixed_shot=1,
+                              way_min=opt['data.way_min'], fixed_way=n_way)
         elif split == 'val5':
-            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'], fixed_shot=5, way_min=opt['data.way_min'], fixed_way=n_way)
+            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'], fixed_shot=5,
+                              way_min=opt['data.way_min'], fixed_way=n_way)
         else:
-            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'], fixed_shot=opt['data.test_shot'], way_min=opt['data.way_min'], fixed_way=n_way)
+            SE = SetupEpisode(batch_size=opt['data.batch_size'], shot_max=opt['data.shot_max'],
+                              fixed_shot=opt['data.test_shot'], way_min=opt['data.way_min'], fixed_way=n_way)
 
         if split in ['val1', 'val5', 'test']:
             n_episodes = opt['data.test_episodes']
@@ -92,7 +95,6 @@ def load_data(opt, splits):
 
 
 def load_class_images(split, dataset, cache, augm_opt, d):
-
     if d['class'] in cache.data.keys():
         if len(cache.data[d['class']]) < augm_opt['cache_size']:
             init_entry = False
@@ -109,6 +111,7 @@ def load_class_images(split, dataset, cache, augm_opt, d):
     else:
         rand_ids = np.random.choice(cache_len, size=augm_opt['n_augment'], replace=False)
 
-    out_dicts = [{'class': d['class'], 'data': cache.data[d['class']][rand_ids[i]]} for i in range(augm_opt['n_augment'])]
+    out_dicts = [{'class': d['class'], 'data': cache.data[d['class']][rand_ids[i]]} for i in
+                 range(augm_opt['n_augment'])]
 
     return out_dicts

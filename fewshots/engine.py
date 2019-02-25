@@ -2,12 +2,13 @@
 
 from tqdm import tqdm
 
+
 class Engine(object):
     def __init__(self):
         hook_names = ['on_start', 'on_start_epoch', 'on_sample', 'on_forward',
                       'on_backward', 'on_end_epoch', 'on_update', 'on_end']
 
-        self.hooks = { }
+        self.hooks = {}
         for hook_name in hook_names:
             self.hooks[hook_name] = lambda state: None
 
@@ -18,9 +19,9 @@ class Engine(object):
             'optim_method': kwargs['optim_method'],
             'optim_config': kwargs['optim_config'],
             'max_epoch': kwargs['max_epoch'],
-            'epoch': 0, # epochs done so far
-            't': 0, # samples seen so far
-            'batch': 0, # samples seen in current epoch
+            'epoch': 0,  # epochs done so far
+            't': 0,  # samples seen so far
+            'batch': 0,  # samples seen in current epoch
             'stop': False
         }
 

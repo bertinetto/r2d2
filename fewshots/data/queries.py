@@ -12,7 +12,7 @@ def shuffle_queries_bin(x, n_way, n_shot, n_query, n_augment, y_outer, y_outer_2
 
 
 def shuffle_queries_multi(x, n_way, n_shot, n_query, n_augment, y_binary, y):
-    ind_xs = torch.linspace(0, n_way * n_shot*n_augment - 1, steps=n_way * n_shot*n_augment).long()
+    ind_xs = torch.linspace(0, n_way * n_shot * n_augment - 1, steps=n_way * n_shot * n_augment).long()
     ind_xs = Variable(ind_xs.cuda())
     perm_xq = torch.randperm(n_way * n_query).long()
     perm_xq = Variable(perm_xq.cuda())

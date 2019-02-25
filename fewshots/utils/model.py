@@ -1,4 +1,5 @@
-# This file originally appeared in https://github.com/jakesnell/prototypical-networks and has been modified for the purpose of this project
+# This file originally appeared in https://github.com/jakesnell/prototypical-networks
+# and has been modified for the purpose of this project
 
 from tqdm import tqdm
 
@@ -19,7 +20,6 @@ def load(opt):
 
 
 def evaluate(model, data_loader, meters, desc=None):
-
     model.eval()
 
     for field, meter in meters.items():

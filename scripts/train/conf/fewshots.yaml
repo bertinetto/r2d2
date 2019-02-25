@@ -10,7 +10,7 @@ data.batch_size: 240
 data.shot_min: 1
 data.shot_max: 10
 data.way_min: 5
-data.way_max: 10000
+data.way_max: 100
 data.seed: 1234
 
 # # Model
@@ -29,7 +29,7 @@ train.learning_rate: 5e-3
 train.lr_decay: 0.5
 train.decay_every: 20
 train.weight_decay: 0
-train.patience: 300
+train.patience: 200
 train.scheduler_type: step
 train.plateau_patience: 20
 

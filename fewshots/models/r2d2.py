@@ -11,12 +11,14 @@ from fewshots.labels_r2d2 import make_float_label, make_long_label
 from fewshots.models.adjust import AdjustLayer, LambdaLayer
 from fewshots.data.queries import shuffle_queries_multi
 
+
 def t_(x):
     return t(x, 0, 1)
 
 
 class RRNet(nn.Module):
-    def __init__(self, encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base, n_augment, linsys):
+    def __init__(self, encoder, debug, out_dim, learn_lambda, init_lambda, init_adj_scale, lambda_base, adj_base,
+                 n_augment, linsys):
         super(RRNet, self).__init__()
         self.encoder = encoder
         self.debug = debug
@@ -29,7 +31,7 @@ class RRNet(nn.Module):
 
     def loss(self, sample):
         xs, xq = Variable(sample['xs']), Variable(sample['xq'])
-        assert(xs.size(0) == xq.size(0))
+        assert (xs.size(0) == xq.size(0))
         n_way, n_shot, n_query = xs.size(0), xs.size(1), xq.size(1)
         if n_way * n_shot * self.n_augment > self.output_dim + 1:
             rr_type = 'standard'
@@ -42,14 +44,15 @@ class RRNet(nn.Module):
         y_outer_binary = make_float_label(n_way, n_query)
         y_outer = make_long_label(n_way, n_query)
 
-        x = torch.cat([xs.view(n_way * n_shot*self.n_augment, *xs.size()[2:]),
+        x = torch.cat([xs.view(n_way * n_shot * self.n_augment, *xs.size()[2:]),
                        xq.view(n_way * n_query, *xq.size()[2:])], 0)
 
-        x, y_outer_binary, y_outer = shuffle_queries_multi(x, n_way, n_shot, n_query, self.n_augment, y_outer_binary, y_outer)
+        x, y_outer_binary, y_outer = shuffle_queries_multi(x, n_way, n_shot, n_query, self.n_augment, y_outer_binary,
+                                                           y_outer)
 
         z = self.encoder.forward(x)
-        zs = z[:n_way * n_shot*self.n_augment]
-        zq = z[n_way * n_shot*self.n_augment:]
+        zs = z[:n_way * n_shot * self.n_augment]
+        zq = z[n_way * n_shot * self.n_augment:]
         # add a column of ones for the bias
         ones = Variable(torch.unsqueeze(torch.ones(zs.size(0)).cuda(), 1))
         if rr_type == 'woodbury':
@@ -68,7 +71,6 @@ class RRNet(nn.Module):
         _, ind_gt = torch.max(y_outer_binary, 1)
 
         loss_val = self.L(y_hat, y_outer)
-        # how many of the query classes have been guessed correctly?
         acc_val = torch.eq(ind_prediction, ind_gt).float().mean()
         # print('Loss: %.3f Acc: %.3f' % (loss_val.data[0], acc_val.data[0]))
         return loss_val, {
@@ -77,7 +79,7 @@ class RRNet(nn.Module):
         }
 
     def rr_standard(self, x, n_way, n_shot, I, yrr_binary, linsys):
-        x /= np.sqrt(n_way*n_shot*self.n_augment)
+        x /= np.sqrt(n_way * n_shot * self.n_augment)
 
         if not linsys:
             w = mm(mm(inv(mm(t(x, 0, 1), x) + self.lambda_rr(I)), t(x, 0, 1)), yrr_binary)
@@ -89,7 +91,7 @@ class RRNet(nn.Module):
         return w
 
     def rr_woodbury(self, x, n_way, n_shot, I, yrr_binary, linsys):
-        x /= np.sqrt(n_way * n_shot*self.n_augment)
+        x /= np.sqrt(n_way * n_shot * self.n_augment)
 
         if not linsys:
             w = mm(mm(t(x, 0, 1), inv(mm(x, t(x, 0, 1)) + self.lambda_rr(I))), yrr_binary)
@@ -100,4 +102,3 @@ class RRNet(nn.Module):
             w = mm(t_(x), w_)
 
         return w
-

@@ -1,4 +1,5 @@
-# This file originally appeared in https://github.com/jakesnell/prototypical-networks and has been modified for the purpose of this project
+# This file originally appeared in https://github.com/jakesnell/prototypical-networks
+# and has been modified for the purpose of this project
 
 import os
 import json
@@ -11,12 +12,9 @@ import torch.optim.lr_scheduler as lr_scheduler
 import torchnet as tnt
 
 from fewshots.engine import Engine
-
-from fewshots.utils import merge_dict
 import fewshots.utils.data as data_utils
 import fewshots.utils.model as model_utils
 import fewshots.utils.log as log_utils
-from fewshots.utils.log import load_trace
 
 
 def _data_model_setup(opts):
@@ -24,9 +22,9 @@ def _data_model_setup(opts):
         opts['data.split'] = 'vinyals'
         opts['model.x_dim'] = '1,28,28'
         if opts['model.model_name'] == 'RRNet':
-            opts['model.out_dim'] = 1536+2048
+            opts['model.out_dim'] = 1536 + 2048
         elif opts['model.model_name'] == 'RRNet_small':
-            opts['model.out_dim'] = 256*2
+            opts['model.out_dim'] = 256 * 2
         else:
             raise ValueError('Unknown model name')
 
@@ -34,9 +32,9 @@ def _data_model_setup(opts):
         opts['data.split'] = 'ravi-larochelle'
         opts['model.x_dim'] = '3,84,84'
         if opts['model.model_name'] == 'RRNet':
-            opts['model.out_dim'] = 31104+41472
+            opts['model.out_dim'] = 31104 + 41472
         elif opts['model.model_name'] == 'RRNet_small':
-            opts['model.out_dim'] = 5184*2
+            opts['model.out_dim'] = 5184 * 2
         else:
             raise ValueError('Unknown model name')
 
@@ -44,9 +42,9 @@ def _data_model_setup(opts):
         opts['data.split'] = 'bertinetto'
         opts['model.x_dim'] = '3,32,32'
         if opts['model.model_name'] == 'RRNet':
-            opts['model.out_dim'] = 3456+4608
+            opts['model.out_dim'] = 3456 + 4608
         elif opts['model.model_name'] == 'RRNet_small':
-            opts['model.out_dim'] = 576*2
+            opts['model.out_dim'] = 576 * 2
         else:
             raise ValueError('Unknown model name')
     else:
@@ -56,7 +54,6 @@ def _data_model_setup(opts):
 
 
 def main(opts):
-
     opts = _data_model_setup(opts)
 
     opts['model.x_dim'] = list(map(int, opts['model.x_dim'].split(',')))
@@ -105,9 +102,13 @@ def main(opts):
         if os.path.isfile(trace_file):
             os.remove(trace_file)
         if opts['train.scheduler_type'] == 'step':
-            state['scheduler'] = lr_scheduler.StepLR(state['optimizer'], opts['train.decay_every'], gamma=opts['train.lr_decay'])
+            state['scheduler'] = lr_scheduler.StepLR(state['optimizer'], opts['train.decay_every'],
+                                                     gamma=opts['train.lr_decay'])
         elif opts['train.scheduler_type'] == 'plateau':
-            state['scheduler'] = lr_scheduler.ReduceLROnPlateau(state['optimizer'], mode='max', factor=opts['train.lr_decay'], patience=opts['train.plateau_patience'], threshold=0.002, threshold_mode='abs')
+            state['scheduler'] = lr_scheduler.ReduceLROnPlateau(state['optimizer'], mode='max',
+                                                                factor=opts['train.lr_decay'],
+                                                                patience=opts['train.plateau_patience'],
+                                                                threshold=0.002, threshold_mode='abs')
         else:
             raise ValueError('Unknown scheduler type.')
 
@@ -200,7 +201,8 @@ def main(opts):
 
                 if hook_state['wait1'] > opts['train.patience'] and hook_state['wait5'] > opts['train.patience']:
                     logger("==> patience {:d} exceeded".format(opts['train.patience']))
-                    logger("==> BEST ACC for 1 and 5 shots: {:2.3f}, {:2.3f}".format(hook_state['best_acc1']*100, hook_state['best_acc5']*100))
+                    logger("==> BEST ACC for 1 and 5 shots: {:2.3f}, {:2.3f}".format(hook_state['best_acc1'] * 100,
+                                                                                     hook_state['best_acc5'] * 100))
                     state['stop'] = True
         else:
             state['model'].cpu()
@@ -230,4 +232,3 @@ def setup_logger(log_file):
         lgr = print
 
     return lgr
-

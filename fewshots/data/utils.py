@@ -3,13 +3,11 @@ import torch
 import numpy as np
 from torchvision import transforms
 
-# normalize_t = transforms.Normalize(mean=[0.92206, 0.92206, 0.92206], std=[0.08426, 0.08426, 0.08426])
+normalize_mini_t = transforms.Normalize(mean=[x / 255.0 for x in [120.39586422, 115.59361427, 104.54012653]],
+                                        std=[x / 255.0 for x in [70.68188272, 68.27635443, 72.54505529]])
 
-normalize_mini_t = transforms.Normalize(mean=[x/255.0 for x in [120.39586422,  115.59361427, 104.54012653]],
-                                        std=[x/255.0 for x in [70.68188272, 68.27635443, 72.54505529]])
-
-normalize_cifar_t = transforms.Normalize(mean=[x/255.0 for x in [125.3, 123.0, 113.9]],
-                                         std=[x/255.0 for x in [63.0, 62.1, 66.7]])
+normalize_cifar_t = transforms.Normalize(mean=[x / 255.0 for x in [125.3, 123.0, 113.9]],
+                                         std=[x / 255.0 for x in [63.0, 62.1, 66.7]])
 
 
 def nop(d):
@@ -51,6 +49,7 @@ def crop(key, crop_transforms, max_crop_shrink, d):
 def normalize_mini_image(key, d):
     d[key] = normalize_mini_t(d[key])
     return d
+
 
 def normalize_cifar_image(key, d):
     d[key] = normalize_cifar_t(d[key])

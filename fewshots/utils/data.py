@@ -1,4 +1,5 @@
-# This file originally appeared in https://github.com/jakesnell/prototypical-networks and has been modified for the purpose of this project
+# This file originally appeared in https://github.com/jakesnell/prototypical-networks
+# and has been modified for the purpose of this project
 
 from fewshots.data.load import load_data
 

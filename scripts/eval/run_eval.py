@@ -8,11 +8,11 @@ parser.add_argument('--model.model_path', type=str, metavar='PATH',
                     help="location of pretrained model to evaluate")
 
 parser.add_argument('--data.test_way', type=int, metavar='N', default=0,
-                    help="number of classes per episode in test. 0 means same as model's data.test_way")
+                    help="number of classes per episode in test")
 parser.add_argument('--data.test_shot', type=int, metavar='N', default=0,
-                    help="number of support examples per class in test. 0 means same as model's data.shot")
+                    help="number of support examples per class in test")
 parser.add_argument('--data.test_query', type=int, metavar='N', default=0,
-                    help="number of query examples per class in test. 0 means same as model's data.query")
+                    help="number of query examples per class in test")
 
 parser.add_argument('--data.test_episodes', type=int, metavar='N', default=1000,
                     help="number of test episodes per epoch")
