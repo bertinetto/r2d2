@@ -1,0 +1,18 @@
+name: fsrr
+channels:
+    - pytorch
+    - anaconda
+    - menpo  
+dependencies:
+    - python=3.5
+    - Cython
+    - numpy
+    - pillow
+    - pandas
+    - requests
+    - configargparse
+    - cuda91
+    - pytorch=0.3
+    - torchvision
+    - matplotlib
+    - tqdm
