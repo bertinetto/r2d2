@@ -1,4 +1,4 @@
-### Code for the ICLR'19 paper "Meta-learning with differentiable closed-form solvers".
+### Meta-learning with differentiable closed-form solvers.
 
 #### Paper
 * OpenReview: https://openreview.net/forum?id=HyxnZh0ct7 
