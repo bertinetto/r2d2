@@ -18,7 +18,7 @@ url={https://openreview.net/forum?id=HyxnZh0ct7},
 
 #### Data setup
 * In `scripts/train/conf/fewshots.yaml`, specify the location of your custom `$DATASET_PATH`  (`data.root_dir`).
-* Download [Omniglot](https://gofile.io/?c=No7UF3), [CIFAR-FS](https://gofile.io/?c=pwbukP) and [<i>mini</i>ImageNet](https://gofile.io/?c=KbY4eQ)  the above format. Original datasets from [here](https://github.com/brendenlake/omniglot/tree/master/python) and [here](https://www.cs.toronto.edu/~kriz/cifar.html).
+* Download [Omniglot](https://drive.google.com/open?id=10ml4OJRc13pl5Ms3mm2VyscyTj94c87O), [CIFAR-FS](https://drive.google.com/file/d/1pTsCCMDj45kzFYgrnO67BWVbKs48Q3NI/view?usp=sharing) and [<i>mini</i>ImageNet](https://drive.google.com/open?id=1R6dA6QGEW-lmiNkitCwK4IkAbl4uT3y3)  the above format. Original datasets from [here](https://github.com/brendenlake/omniglot/tree/master/python) and [here](https://www.cs.toronto.edu/~kriz/cifar.html).
 * Download and extract one or more datasets in your custom `$DATASET_PATH` folder, the code assumes the following structure (example):
 ```
 $DATASET_PATH
