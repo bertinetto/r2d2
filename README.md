@@ -1,6 +1,6 @@
 ### Meta-learning with differentiable closed-form solvers.
 
-#### Paper
+#### Paper (published at ICLR 2019)
 * arXiv: https://arxiv.org/abs/1805.08136
 * OpenReview: https://openreview.net/forum?id=HyxnZh0ct7 
 
